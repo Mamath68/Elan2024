@@ -1,17 +1,137 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+		<html h-full bg-gray-100>
+			<head>
+				<meta charset="UTF-8">
+				<title>
+					{% block title %}
+						Projet Elan 2024
+					{% endblock %}
+				</title>
+				<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.4em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+				{% block stylesheets %}
+					<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+				{% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+				{% block javascripts %}
+					{% block importmap %}
+						{{ importmap('app') }}
+					{% endblock %}
+					<script src="{{asset('js/script.js')}}"></script>
+				{% endblock %}
+			</head>
+			<body class="h-full">
+				<nav class="bg-white shadow-md">
+					<div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+						<div class="relative flex items-center justify-between h-16">
+							<div
+								class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+								<!-- Mobile menu button-->
+								<button id="menu-button" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+									<span class="sr-only">
+										Open main menu
+									</span>
+									<!-- Icon when menu is closed. -->
+									<svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+									</svg>
+									<!-- Icon when menu is open. -->
+									<svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+									</svg>
+								</button>
+							</div>
+							<div class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
+								<div class="flex-shrink-0">
+									<a href="{{ path('app_home') }}" class="text-2xl font-bold text-gray-900">
+										Projet Elan 2024
+									</a>
+								</div>
+								<div class="hidden sm:block sm:ml-6">
+									<div class="flex space-x-4">
+										<a href="{{ path('app_home') }}" class="{{ app.request.attributes.get('_route') == 'app_home' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+											Home
+										</a>
+										<a href="{{ path('app_about') }}" class="{{ app.request.attributes.get('_route') == 'app_about' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+											About
+										</a>
+										<a href="{{ path('app_cards') }}" class="{{ app.request.attributes.get('_route') == 'app_cards' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+											Les cartes
+										</a>
+										<a href="{{ path('app_forum') }}" class="{{ app.request.attributes.get('_route') == 'app_forum' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+											Forum
+										</a>
+										<a href="{{ path('app_contact') }}" class="{{ app.request.attributes.get('_route') == 'app_contact' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+											Contact
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+								{% if app.user %}
+									<a href="{{ path('app_profile') }}" class="{{ app.request.attributes.get('_route') == 'app_profile' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+
+										Profile
+									</a>
+									<a href="{{ path('app_logout') }}" class="px-3 py-2 ml-4 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+										Logout
+									</a>
+								{% else %}
+									<a href="{{ path('app_login') }}" class="{{ app.request.attributes.get('_route') == 'app_login' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+										Login
+									</a>
+									<a href="{{ path('app_register') }}" class="{{ app.request.attributes.get('_route') == 'app_register' ? 'text-white bg-green-500 ' : ' text-gray-900 hover:bg-green-600 hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
+
+
+										Register
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<!-- Mobile menu, show/hide based on menu state. -->
+					<div id="mobile-menu" class="hidden sm:hidden">
+						<div class="px-2 pt-2 pb-3 space-y-1">
+							<a href="{{ path('app_home') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+								Home
+							</a>
+							<a href="{{ path('app_about') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+								About
+							</a>
+							<a href="{{ path('app_cards') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+								Les cartes
+							</a>
+							<a href="{{ path('app_forum') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+								Forum
+							</a>
+							<a href="{{ path('app_contact') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+								Contact
+							</a>
+							{% if app.user %}
+								<a href="{{ path('app_profile') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+									Profile
+								</a>
+								<a href="{{ path('app_logout') }}" class="block px-3 py-2 text-base font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+									Logout
+								</a>
+							{% else %}
+								<a href="{{ path('app_login') }}" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-700 hover:text-white">
+									Login
+								</a>
+								<a href="{{ path('app_register') }}" class="block px-3 py-2 text-base font-medium text-white bg-green-500 rounded-md hover:bg-green-600">
+									Register
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				</nav>
+				<main>
+					<div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8"> {% block body %}{% endblock %}
+						</div>
+					</main>
+					<footer class="py-4 text-center bg-gray-200">
+						<h1>
+							Footer
+						</h1>
+					</footer>
+				</body>
+			</html>

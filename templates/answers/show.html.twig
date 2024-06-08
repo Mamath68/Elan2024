@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Answers{% endblock %}
+
+{% block body %}
+    <h1>Answers</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ answer.id }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ answer.body }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ answer.img }}</td>
+            </tr>
+            <tr>
+                <th>Answered_at</th>
+                <td>{{ answer.answeredAt ? answer.answeredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_answers_index') }}">back to list</a>
+
+    <a href="{{ path('app_answers_edit', {'id': answer.id}) }}">edit</a>
+
+    {{ include('answers/_delete_form.html.twig') }}
+{% endblock %}

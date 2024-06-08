@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+		{% block title %}
+			Contact me
+		{% endblock %}
+
+		{% block body %}
+			<h1 class="mb-4">
+				Contact me
+			</h1>
+
+			<form action="https://getform.io/f/a8940881-04f5-47e6-93bf-bfde0fc31015" method="POST" class="space-y-4">
+				<div>
+					<label for="name" class="block text-sm font-medium text-gray-700">
+						Name
+					</label>
+					<input type="text" id="name" name="name" class="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg">
+				</div>
+				<div>
+					<label for="email" class="block text-sm font-medium text-gray-700">
+						Email
+					</label>
+					<input type="email" id="email" name="email" class="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg">
+				</div>
+				<div>
+					<label for="message" class="block text-sm font-medium text-gray-700">
+						Message
+					</label>
+					<textarea id="message" name="message" class="block w-full px-4 py-2 mt-1 border border-gray-600 rounded-lg"></textarea>
+				</div>
+				<div>
+					<button type="submit" class="block w-full px-4 py-2 text-white bg-blue-500 rounded-lg">
+						Send Message
+					</button>
+				</div>
+
+			</form>
+
+		{% endblock %}

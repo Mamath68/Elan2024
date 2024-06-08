@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+		{% block title %}
+			{{ card.name }}
+		{% endblock %}
+
+		{% block body %}
+			<div class="container p-6 mx-auto">
+				<div class="p-6 bg-white rounded-lg shadow">
+					<h1 class="mb-4 text-3xl font-bold">
+						{{ card.name }}
+					</h1>
+					<img src="{{ card.card_images[0].image_url }}" alt="{{ card.name }}" class="object-cover w-full h-64 mb-4">
+					<p class="mb-2">
+						<strong>
+							Type:
+						</strong>
+						{{ card.type }}
+					</p>
+					<p class="mb-2">
+						<strong>
+							Race:
+						</strong>
+						{{ card.race }}
+					</p>
+					{% if card.attribute is defined %}
+						<p class="mb-2">
+							<strong>
+								Attribute:
+							</strong>
+							{{ card.attribute }}
+						</p>
+					{% endif %}
+					{% if card.level is defined %}
+
+						<p class="mb-2">
+							<strong>
+								Level/Rank:
+							</strong>
+							{{ card.level }}
+						</p>
+					{% endif %}
+					{% if card.atk is defined %}
+
+						<p class="mb-2">
+							<strong>
+								Attack:
+							</strong>
+							{{ card.atk }}
+						</p>
+					{% endif %}
+					{% if card.def is defined %}
+
+						<p class="mb-2">
+							<strong>
+								Defense:
+							</strong>
+							{{ card.def }}
+						</p>
+					{% endif %}
+					{% if card.archetype is defined %}
+
+						<p class="mb-2">
+							<strong>
+								Archetype:
+							</strong>
+							<a href="{{ path('detail_archetype', {'archetype': card.archetype}) }}">
+								{{ card.archetype }}
+							</a>
+						</p>
+					{% endif %}
+					<p class="mb-4">
+						<strong>
+							Description:
+						</strong>
+						{{ card.desc }}
+					</p>
+					<a href="{{ path('app_cards') }}" class="px-4 py-2 text-white bg-blue-500 rounded">
+						Back to list
+					</a>
+				</div>
+			</div>
+		{% endblock %}
