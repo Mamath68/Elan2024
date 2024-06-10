@@ -62,12 +62,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $registered_at = null;
 
+    /**
+     * @var Collection<int, Deck>
+     */
+    #[ORM\OneToMany(targetEntity: Deck::class, mappedBy: 'user')]
+    private Collection $decks;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
         $this->answers = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->registered_at = new \DateTimeImmutable();
+        $this->decks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +274,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegisteredAt(\DateTimeImmutable $registered_at): static
     {
         $this->registered_at = $registered_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deck>
+     */
+    public function getDecks(): Collection
+    {
+        return $this->decks;
+    }
+
+    public function addDeck(Deck $deck): static
+    {
+        if (!$this->decks->contains($deck)) {
+            $this->decks->add($deck);
+            $deck->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeck(Deck $deck): static
+    {
+        if ($this->decks->removeElement($deck)) {
+            // set the owning side to null (unless already changed)
+            if ($deck->getUser() === $this) {
+                $deck->setUser(null);
+            }
+        }
 
         return $this;
     }

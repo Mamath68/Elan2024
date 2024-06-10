@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-		<html h-full bg-gray-100>
+		<html class="bg-gray-100">
 			<head>
 				<meta charset="UTF-8">
 				<title>
@@ -54,9 +54,31 @@
 										<a href="{{ path('app_about') }}" class="{{ app.request.attributes.get('_route') == 'app_about' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
 											About
 										</a>
-										<a href="{{ path('app_cards') }}" class="{{ app.request.attributes.get('_route') == 'app_cards' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
-											Les cartes
-										</a>
+										<div
+											class="relative">
+											<!-- Dropdown button -->
+											<button id="cards-dropdown" class="px-3 py-2 text-sm font-medium text-gray-900 rounded-md focus:outline-none hover:bg-gray-200">
+												Le jeu de carte
+												<!-- Arrow icon -->
+												<svg class="inline-block w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
+													<path fill-rule="evenodd" d="M10 12l-8-8 1.5-1.5L10 9.5l6.5-6-1.5 1.5z" clip-rule="evenodd"/>
+												</svg>
+											</button>
+											<!-- Dropdown menu -->
+											<div id="cards-dropdown-menu" class="absolute left-0 z-10 hidden w-56 mt-2 bg-white rounded-md shadow-lg">
+												<div
+													class="py-1">
+													<!-- Dropdown items -->
+													<a href="{{ path('app_cards') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+														Les Cartes
+													</a>
+
+													<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+														Les Rêgles du jeu
+													</a>
+												</div>
+											</div>
+										</div>
 										<a href="{{ path('app_forum') }}" class="{{ app.request.attributes.get('_route') == 'app_forum' ? 'bg-gray-700 text-white ' : ' text-gray-900 hover:bg-[#007bff] hover:text-white' }} px-3 py-2 text-sm font-medium rounded-md">
 											Forum
 										</a>
@@ -125,13 +147,13 @@
 					</div>
 				</nav>
 				<main>
-					<div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8"> {% block body %}{% endblock %}
-						</div>
-					</main>
-					<footer class="py-4 text-center bg-gray-200">
-						<h1>
-							Footer
-						</h1>
-					</footer>
-				</body>
-			</html>
+					{% block body %}
+					{% endblock %}
+				</main>
+				<footer class="py-4 text-center bg-gray-200">
+					<h1>
+						Footer
+					</h1>
+				</footer>
+			</body>
+		</html>

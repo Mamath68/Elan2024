@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+		{% block title %}
+			The Forum
+		{% endblock %}
+
+		{% block body %}
+			<h1 class="mb-4 text-2xl font-bold">
+				The Forum
+			</h1>
+
+			<table class="min-w-full divide-y divide-gray-200">
+				<thead>
+					<tr>
+						<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+							Id
+						</th>
+						<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+							Body
+						</th>
+						<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+							Img
+						</th>
+						<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+							Published At
+						</th>
+						<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody class="bg-white divide-y divide-gray-200">
+					{% for publication in publications %}
+						<tr>
+							<td class="px-6 py-4 whitespace-nowrap">
+								{{ publication.id }}
+							</td>
+							<td class="px-6 py-4 whitespace-nowrap">
+								{{ publication.body }}
+							</td>
+							<td class="px-6 py-4 whitespace-nowrap">
+								{{ publication.img }}
+							</td>
+							<td class="px-6 py-4 whitespace-nowrap">
+								{{ publication.publishedAt ? publication.publishedAt|date('Y-m-d H:i:s') : '' }}
+							</td>
+							<td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+								<a href="{{ path('app_forum_show', {'id': publication.id}) }}" class="text-indigo-600 hover:text-indigo-900">
+									Show
+								</a>
+								<a href="{{ path('app_publications_edit', {'id': publication.id}) }}" class="ml-2 text-indigo-600 hover:text-indigo-900">
+									Edit
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5" class="px-6 py-4 whitespace-nowrap">
+								No records found
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('app_publications_new') }}" class="inline-block px-4 py-2 mt-4 font-semibold text-white bg-indigo-500 rounded-md hover:bg-indigo-600">
+				Create New
+			</a>
+		{% endblock %}
+

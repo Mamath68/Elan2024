@@ -5,79 +5,221 @@
 		{% endblock %}
 
 		{% block body %}
-			<div class="container p-6 mx-auto">
-				<div class="p-6 bg-white rounded-lg shadow">
-					<h1 class="mb-4 text-3xl font-bold">
-						{{ card.name }}
-					</h1>
-					<img src="{{ card.card_images[0].image_url }}" alt="{{ card.name }}" class="object-cover w-full h-64 mb-4">
-					<p class="mb-2">
-						<strong>
-							Type:
-						</strong>
-						{{ card.type }}
-					</p>
-					<p class="mb-2">
-						<strong>
-							Race:
-						</strong>
-						{{ card.race }}
-					</p>
-					{% if card.attribute is defined %}
-						<p class="mb-2">
-							<strong>
-								Attribute:
-							</strong>
-							{{ card.attribute }}
-						</p>
-					{% endif %}
-					{% if card.level is defined %}
+			<div class="py-6">
+				<div class="mx-auto sm:px-6 lg:px-8">
+					<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
+						{% if card %}
+							<div class="card-area">
+								<div class="m-4">
+									<h1 class="text-center underline">
+										{{card.name}}
+									</h1>
+								</div>
+								<div class="column1">
+									<div class="card-image">
+										<figure>
+											<img src="{{ card.card_images[0].image_url }}" alt="{{ card.name }}" title="{{ card.name }}"/>
+										</figure>
+									</div>
+								</div>
+								<div class="column2">
+									<ul class="card-data-info">
+										{% if card.type == 'Spell Card' or card.type == 'Trap Card'%}
+											<li>
+												<span class="card-data-header text-info">
+													Type
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://images.ygoprodeck.com/images/cards/icons/race/{{card.race}}.png" alt="{{card.race ~ ' ' ~ card.type}}" title="{{card.race ~ ' ' ~ card.type}}" loading="lazy"/>
+													<a href="{{path('detail_race_type', {'race': card.race, 'type': card.type})}}" target="_blank">
+														{{card.race ~ ' ' ~ card.type}}
+													</a>
+												</span>
+											</li>
+										{% else %}
+											<li>
+												<span class="card-data-header text-info">
+													Type
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													{{ ux_icon('fa6-solid:book', {height: 'auto', width: '1rem'}) }}
+													<a href="{{path('detail_type', {'type': card.type})}}" target="_blank">
+														{{ card.type}}
+													</a>
+												</span>
+											</li>
+											<li>
+												<span class="card-data-header text-info">
+													Race
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://images.ygoprodeck.com/images/cards/icons/race/{{card.race}}.png" alt="{{card.race}}" title="{{card.race}}" loading="lazy"/>
+													<a href="{{path('detail_race', {'race': card.race})}}" target="_blank">
+														{{card.race}}
+													</a>
+												</span>
+											</li>
+										{% endif %}
+										{% if card.attribute is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Attribute
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://images.ygoprodeck.com/images/cards/{{card.attribute}}.jpg" alt="Attribute : {{card.attribute}}" title="Attribute : {{card.attribute}}" loading="lazy"/>
+													<a href="{{ path('detail_attribute', {'attribute': card.attribute}) }}" target="_blank">
 
-						<p class="mb-2">
-							<strong>
-								Level/Rank:
-							</strong>
-							{{ card.level }}
-						</p>
-					{% endif %}
-					{% if card.atk is defined %}
+														{{card.attribute}}
+													</a>
+												</span>
+											</li>
+										{% endif %}
+										{% if card.level is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Level/Rank
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://ygoprodeck.com/wp-content/uploads/2017/01/level.png" alt="Level/Rank : {{card.level}}" title="Level/Rank : {{card.level}}" loading="lazy"/>
+													<a href="{{path('detail_level', {'level' : card.level})}}" target="_blank">
+														{{card.level}}
 
-						<p class="mb-2">
-							<strong>
-								Attack:
-							</strong>
-							{{ card.atk }}
-						</p>
-					{% endif %}
-					{% if card.def is defined %}
+													</a>
+												</span>
+											</li>
+										{% endif %}
+										{% if card.scale is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Pendulum Scale
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://www.db.yugioh-card.com/yugiohdb/external/image/parts/icon_pendulum.png" alt="Pendulum Scale : {{card.scale}}" title="Pendulum Scale : {{card.scale}}" loading="lazy"/>
+													<a href="{{path('detail_scale', {'scale': card.scale})}}" target="_blank">
+														{{ card.scale }}
+													</a>
+												</span>
+											</li>
+										{% endif %}
+										{% if card.linkval is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Link Value
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="https://ygoprodeck.com/wp-content/uploads/2017/01/level.png" alt="Link : {{card.linkval}}" title="Link : {{card.linkval}}" loading="lazy"/>
+													<a href="{{path('detail_link', {'linkval': card.linkval})}}" target="_blank">
+														{{ card.linkval }}
+													</a>
+												</span>
+											</li>
+										{% endif %}
+										{% if card.atk is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Attack
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													<img class="card-typing-icon" src="{{ asset('img/swords.png') }}" title="Attack : {{card.atk}}" alt="Attack : {{card.atk}}"/>
+													{% if card.atk == 0 %}
+														<a href="{{ path('detail_min_attack', {'atk': card.atk}) }}" target="_blank">
+															{{ card.atk }}
+														</a>
+													{% else %}
+														<a href="{{ path('detail_attack', {'atk': card.atk}) }}" target="_blank">
+															{{ card.atk }}
+														</a>
+													{% endif %}
+												</span>
+											</li>
+										{% endif %}
+										{% if card.def is defined %}
+											<li>
+												<span class="card-data-header text-info">
+													Defense
+												</span>
+												<span class="card-data-cost card-data-subheader">
+													{{ ux_icon('fa6-solid:shield', {height: 'auto', width: '1rem'}) }}
+													{% if card.def == 0 %}
+														<a href="{{ path('detail_min_defense', {'def': card.def}) }}" target="_blank">
+															{{ card.def }}
+														</a>
+													{% else %}
+														<a href="{{ path('detail_defense', {'def': card.def}) }}" target="_blank">
+															{{ card.def }}
+														</a>
+													{% endif %}
+												</span>
+											</li>
+										{% endif %}
+										<li>
+											<span class="card-data-header text-info">
+												Archetype
+											</span>
+											<span class="card-data-cost card-data-subheader">
+												{% if card.archetype is defined %}
+													<img class="card-typing-icon" src="{{ asset('/img/roundflask.png') }}" alt="Archetype : {{card.archetype}}" title="Archetype : {{card.archetype}}"/>
+													<a href="{{ path('detail_archetype', {'archetype': card.archetype|replace({'/': '~'})|url_encode}) }}" target="_blank">
+														{{ card.archetype }}
+													</a>
+												{% else %}
+													<img class="card-typing-icon" src="{{ asset('/img/roundflask.png') }}" alt="This card has no archetype" title="This card has no archetype"/>
+													<p>
+														This card has no archetype
+													</p>
 
-						<p class="mb-2">
-							<strong>
-								Defense:
-							</strong>
-							{{ card.def }}
-						</p>
-					{% endif %}
-					{% if card.archetype is defined %}
+												{% endif %}
+											</span>
+										</li>
+									</ul>
+									{% if card.pend_desc is defined %}
+										<hr class="m-4"/>
+										<div>
+											<p>
+												<strong>
+													Pendulum Description:
+												</strong>
+												{{ card.pend_desc }}
+											</p>
+											<hr class="m-4"/>
+											<p>
+												<strong>
+													Monster Effect:
+												</strong>
+												{{ card.monster_desc }}
+											</p>
+											<hr class="m-4"/>
+										</div>
+									{% else %}
+										<div>
+											<hr class="m-4"/>
+											<p>
+												<strong>
+													Monster/Card Effect/Text:
+												</strong>
+												{{ card.desc }}
+											</p>
+										</div>
+										<hr class="m-4"/>
+									{% endif %}
+									<div class="flex justify-center mt-4 mb-4">
+										<a href="{{ card.ygoprodeck_url }}" class="px-4 py-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-700" target="_blank">
+											Pour plus d'infos, Voir sur YGOPRODeck
+										</a>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<div>
+								<p>
+									Loading...
+								</p>
+							</div>
+						{% endif %}
 
-						<p class="mb-2">
-							<strong>
-								Archetype:
-							</strong>
-							<a href="{{ path('detail_archetype', {'archetype': card.archetype}) }}">
-								{{ card.archetype }}
-							</a>
-						</p>
-					{% endif %}
-					<p class="mb-4">
-						<strong>
-							Description:
-						</strong>
-						{{ card.desc }}
-					</p>
-					<a href="{{ path('app_cards') }}" class="px-4 py-2 text-white bg-blue-500 rounded">
-						Back to list
-					</a>
+					</div>
 				</div>
+
+
 			</div>
 		{% endblock %}

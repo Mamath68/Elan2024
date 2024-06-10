@@ -16,13 +16,7 @@ class PublicationsType extends AbstractType
         $builder
             ->add('body')
             ->add('img')
-            ->add('published_at', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            
         ;
     }
 

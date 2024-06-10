@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Answers{% endblock %}
+		{% block title %}
+			Edit Answers
+		{% endblock %}
 
-{% block body %}
-    <h1>Edit Answers</h1>
+		{% block body %}
+			<h1>
+				Edit Answers
+			</h1>
 
-    {{ include('answers/_form.html.twig', {'button_label': 'Update'}) }}
+			{{ include('answers/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_answers_index') }}">back to list</a>
+			<a href="{{ path('app_comment_show', {'id': comment.id}) }}">
+				back to list
+			</a>
 
-    {{ include('answers/_delete_form.html.twig') }}
-{% endblock %}
+
+			{{ include('answers/_delete_form.html.twig') }}
+		{% endblock %}

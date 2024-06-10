@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+		{% block title %}
+			Publications
+		{% endblock %}
+
+		{% block body %}
+			<div class="py-8 mx-auto max-w-7xl">
+				<h1 class="mb-4 text-3xl font-bold">
+					{{ publication.body }}
+				</h1>
+
+				<h2 class="mb-4 font-semibold underline">
+					Comments
+				</h2>
+{% if comments %}
+			<div class="overflow-x-auto">
+				<table class="min-w-full bg-white border border-gray-200">
+					<thead>
+						<tr>
+							<th class="px-4 py-2 border-b">
+								ID
+							</th>
+							<th class="px-4 py-2 border-b">
+								Comment
+							</th>
+							<th class="px-4 py-2 border-b">
+								Posted At
+							</th>
+							<th class="px-4 py-2 border-b">
+								User
+							</th>
+							<th class="px-4 py-2 border-b">
+								Actions
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for comment in comments %}
+							<tr class="hover:bg-gray-100">
+								<td class="px-4 py-2 border-b">
+									{{ comment.id }}
+								</td>
+								<td class="px-4 py-2 border-b">
+									{{ comment.body }}
+								</td>
+								<td class="px-4 py-2 border-b">
+									{{ comment.commentedAt|date('d-m-Y H:i') }}
+								</td>
+								<td class="px-4 py-2 border-b">
+									{{ comment.user.pseudo }}
+								</td>
+								<td class="px-4 py-2 border-b">
+									<a href="{{ path('app_comment_show', {'id': comment.id}) }}" class="px-2 py-1 text-white bg-green-500 rounded hover:bg-green-700">
+										Show
+									</a>
+									<a href="{{ path('app_comment_edit', {'publicationId': publication.id,'id': comment.id}) }}" class="px-2 py-1 text-white bg-blue-500 rounded hover:bg-blue-700">
+										Edit
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<p class="text-gray-500">
+				No comments found.
+			</p>
+		{% endif %}
+
+		<div class="mt-6">
+			<a href="{{ path('app_comment_new', {'publicationId': publication.id}) }}" class="inline-block px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-700">
+				Add a Comment
+			</a>
+		</div>
+
+		<div class="mt-6">
+			{{ include('publications/_delete_form.html.twig') }}
+		</div>
+	</div>
+{% endblock %}

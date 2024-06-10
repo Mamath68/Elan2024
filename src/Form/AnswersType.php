@@ -17,17 +17,6 @@ class AnswersType extends AbstractType
         $builder
             ->add('body')
             ->add('img')
-            ->add('answered_at', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('comment', EntityType::class, [
-                'class' => Comment::class,
-                'choice_label' => 'id',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 
